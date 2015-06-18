@@ -7,7 +7,7 @@
     <include
         android:id="@+id/week_label"
         layout="@layout/week_label"/>
-    <com.quandongli.calender.CalendarView
+    <com.quandongli.calendar.CalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

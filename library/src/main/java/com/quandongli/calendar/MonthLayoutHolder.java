@@ -1,4 +1,4 @@
-package com.quandongli.calender;
+package com.quandongli.calendar;
 
 import android.text.format.DateFormat;
 import android.view.View;

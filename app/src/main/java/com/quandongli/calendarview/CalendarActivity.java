@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.quandongli.calender.CalendarDateSelectManager;
-import com.quandongli.calender.CalendarView;
+import com.quandongli.calendar.CalendarDateSelectManager;
+import com.quandongli.calendar.CalendarView;
 
 import java.util.Date;
 
