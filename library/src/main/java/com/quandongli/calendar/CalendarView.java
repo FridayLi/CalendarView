@@ -1,10 +1,5 @@
 package com.quandongli.calendar;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,6 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class CalendarView extends ListView{
@@ -47,17 +48,23 @@ public class CalendarView extends ListView{
 		private List<Date> mMonthList = new ArrayList<Date>();
 		private int mCount;
 		private Calendar mCalendar;
+		private LinkedList<View> mItemViewList = new LinkedList<>();
 		
 		public CalendarAdapter(Context context) {
 			mInflater = LayoutInflater.from(context);
 			mCount = 100;
 			mCalendar = Calendar.getInstance();
-			mCalendar.add(Calendar.MONTH, 0-mCount+1);
+			mCalendar.add(Calendar.MONTH, 0 - mCount + 1);
 			mCalendar.setFirstDayOfWeek(Calendar.SUNDAY);
 			for(int i = 0; i < mCount; i++) {				
 				mMonthList.add(mCalendar.getTime());
 				mCalendar.add(Calendar.MONTH, 1);
 			}
+
+			for (int i = 0; i < 3; i++) {
+				mItemViewList.offer(mInflater.inflate(R.layout.month_layout, null));
+			}
+
 		}
 
 		@Override
@@ -79,7 +86,9 @@ public class CalendarView extends ListView{
 		public View getView(int position, View convertView, ViewGroup parent) {
 			MonthLayoutHolder holder;
 			if(convertView == null) {
-				convertView = mInflater.inflate(R.layout.month_layout, null);
+				View itemView = mItemViewList.poll();
+				//Trick: improve scroll performance on first time.
+				convertView = itemView == null ? mInflater.inflate(R.layout.month_layout, null) : itemView;
 				holder = new MonthLayoutHolder((ViewGroup)convertView, mCalendar);
 				convertView.setTag(holder);
 			} else {
